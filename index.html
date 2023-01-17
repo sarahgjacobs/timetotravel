@@ -4,22 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style.css" media="screen" />
+    <!--FONT BELOW-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Time to Travel</title>
 </head>
 <nav>
     <h1>
-        Time to Travel!
+        Time to Travel Logo Here!
     </h1>
 </nav>
-<body>
-    <h3>Looking to schedule your next vacation, anniversary or get together? Check our website first to make sure you have to most up-to-date information on your travel destination so that you can be relaxed and prepared for the best journey ahead.</h3>
-    <input type="text" class="searchBar"
-placeholder="Dream Destination">
-<button type="submit" class="searchButton">
-    <div class="container">
-        <div class="hidden">
-            <!--INSERT invisible card that appears and hides. SHOW weather, use apis https://rapidapi.com/search/travel-->
-        </div>
+
+<form class="search" id="form"> 
+    <input type="search" id="query" name="q" placeholder="Search...">
+    <button>Search</button>
+  </form>
+
+    <section class="page-contain">
+<div class="container">
+    <h2>Travel to...</h2>
+    <div class="card">
+        <h3>This is where we'll put our APIS</h3>
+        <p>Include more text description here</p>
     </div>
-</body>
+    <div class="card">
+        <h3>We might have to add columns/rows depending on how many API's there are.</h3>
+        <p>Include more text description here</p>
+    </div>
+    <div class="card">
+        <h3>This is where we'll put our APIS</h3>
+        <p>Include more text description here</p>
+    </div>
+</div>      </section>
+    
+
 </html>
+<!--https://rapidapi.com/search/travel-->
