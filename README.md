@@ -12,3 +12,5 @@ Click [here](https://sarahgjacobs.github.io/timetotravel/) for the latest update
 ## Contributors
 [Sarah Jacobs](https://github.com/sarahgjacobs)
 [Elena Brosseau](https://github.com/HelloGonzo)
+
+## License
