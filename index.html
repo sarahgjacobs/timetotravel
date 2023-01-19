@@ -19,15 +19,16 @@
 
 <form class="search" id="form"> 
     <input type="search" id="query" name="q" placeholder="Search...">
-    <button>Search</button>
+    <button type="button" id="search-btn">Search</button>
   </form>
 
     <section class="page-contain">
 <div class="container">
     <h2>Travel to...</h2>
-    <div class="card">
-        <h3>This is where we'll put our APIS</h3>
-        <p>Include more text description here</p>
+    <div class="card" id="weather-card">
+        <h3 id="weather-city">Weather</h3>
+        <p id="temp">enter destination to see weather</p>
+        <p id="conditions"></p>
     </div>
     <div class="card">
         <h3>We might have to add columns/rows depending on how many API's there are.</h3>
@@ -39,6 +40,6 @@
     </div>
 </div>      </section>
     
-
+<script src="./index.js"></script>
 </html>
 <!--https://rapidapi.com/search/travel-->
