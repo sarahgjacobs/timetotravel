@@ -36,7 +36,7 @@ async function fetchCity() {
 }
 
 // returns state if US, country if else
-function countryRegion(data) {
+function region(data) {
     if (data.country === "United States of America") {
         return data.region;
     } else {
@@ -45,14 +45,14 @@ function countryRegion(data) {
 }
 
 // Updates Cards using data from GeoDB
-function updateCards(data) {
+async function updateCards(data) {
     console.log(data);
     if (data !== undefined) {
         let lat = data.latitude;
         let lon = data.longitude;
-        let region = countryRegion(data);
-        sectionTitle.innerHTML = `Travel to ${data.city}, ${region}`;
+        sectionTitle.innerHTML = `Travel to ${data.city}, ${region(data)}`;
         // list of cards
+        fetchImage(data.city);
         fetchWeather(lat, lon);
         //we can add more API functions when we have them
     } else {
@@ -65,6 +65,49 @@ function updateCards(data) {
 function resetPage() {
     errorMsg.style.opacity = '0';
 }
+
+
+
+
+
+// Background Image
+
+
+// fetches image from Unsplash API
+async function fetchImage(city) {
+   
+    try {
+        const response = await fetch( 
+            `https://api.unsplash.com/search/photos?query=${city}&orientation=landscape&per_page=5&page=1&client_id=tQ562nah0auLYfU46x_ZOMrVv9r_zPZgf1Wcna7C2b4`
+            )
+        if (response.ok) {
+            const data = await response.json();
+            displayImage(data);
+        } else {
+            throw new Error ('image request failed');
+        }
+    } catch(error) {
+        console.log(error);
+        errorMsg.innerHTML = error;
+        errorMsg.style.opacity = '1';
+    } 
+}
+
+// displays background image
+async function displayImage(data) {
+    
+    console.log(data)
+
+    let random = Math.floor(Math.random()*5);
+    let background = document.querySelector('body');
+    let lowRes = data.results[random].urls.small;
+    let highRes = data.results[random].urls.full;
+
+    background.style.backgroundImage = `url(${highRes}), url(${lowRes})`;
+    // loads low-res first while waiting for high-res to load
+}
+
+
 
 
 
@@ -100,13 +143,12 @@ async function fetchWeather(lat, lon) {
 }
 
 // displays weather data on card
-function displayWeather(data) {
+async function displayWeather(data) {
     temp.innerHTML = `${toFahrenheit(data.main.temp)}°F`;
     weatherConditions.innerHTML = data.weather[0].description;
     //we can add more if we want
     console.log(data)
 }
-
 
 
 

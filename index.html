@@ -11,37 +11,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <title>Time to Travel</title>
 </head>
-<nav>
-    <h1>
-        Time to Travel Logo Here!
-    </h1>
-</nav>
+<body>
+    <nav>
+        <h1>
+            Time to Travel Logo Here!
+        </h1>
+    </nav>
 
-<form class="search" id="form"> 
-    <input type="search" id="query" name="q" placeholder="Search...">
-    <button type="button" id="search-btn">Search</button>
-    <p id="error">please enter a valid city</p>
-  </form>
+    <form class="search" id="form"> 
+        <input type="search" id="query" name="q" placeholder="Search...">
+        <button type="button" id="search-btn">Search</button>
+        <p id="error">please enter a valid city</p>
+    </form>
 
-    <section class="page-contain">
-<div class="container">
-    <h2 id="destination">Travel to...</h2>
-    <div class="card" id="weather-card">
-        <h3>Weather</h3>
-        <p id="temp">enter destination to see weather</p>
-        <p id="conditions"></p>
-    </div>
-    <div class="card">
-        <h3>We might have to add columns/rows depending on how many API's there are.</h3>
-        <p>Include more text description here</p>
-    </div>
-    <div class="card">
-        <h3>This is where we'll put our APIS</h3>
-        <p>Include more text description here</p>
-    </div>
-</div>      </section>
-    
-<script src="./index.js"></script>
-<script type="module" src="./photo.js"></script>
+        <section class="page-contain">
+    <div class="container">
+        <h2 id="destination">Travel to...</h2>
+        <div class="card" id="weather-card">
+            <h3>Weather</h3>
+            <div id="weather-info">
+                <p id="temp">enter destination to see weather</p>
+                <p id="conditions"></p>
+            </div>
+        </div>
+        <div class="card">
+            <h3>We might have to add columns/rows depending on how many API's there are.</h3>
+            <p>Include more text description here</p>
+        </div>
+        <div class="card">
+            <h3>This is where we'll put our APIS</h3>
+            <p>Include more text description here</p>
+        </div>
+    </div>      </section>
+        
+    <script src="./index.js"></script>
+    <!--<script type="module" src="./photo.js"></script>-->
+</body>
 </html>
 <!--https://rapidapi.com/search/travel-->
