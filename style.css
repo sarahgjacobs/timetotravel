@@ -2,8 +2,9 @@
     font-family: 'Poppins', sans-serif;    
 }
 
-html {
+body {
     background-color: rgb(209, 209, 209);
+    background-size: cover;
 }
 
 h1 {
@@ -12,7 +13,7 @@ h1 {
 }
 
 .container {
-    background-color: rgb(191, 154, 255);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 80%;
     max-width: 700px;
     height: 80%;
@@ -37,9 +38,14 @@ h1 {
     opacity: 0;
 }
 
+#destination {
+    color: white;
+}
+
 .card {
     border-radius: 10px;
     background-color: rgb(214, 189, 255);
     padding: 20px;
     margin: 20px;
 }
+
