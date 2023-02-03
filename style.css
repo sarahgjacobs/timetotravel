@@ -2,6 +2,10 @@
     font-family: 'Poppins', sans-serif;    
 }
 
+img {
+    height: 150px;
+    position: absolute;
+}
 body {
     background-color: rgb(209, 209, 209);
     background-size: cover;

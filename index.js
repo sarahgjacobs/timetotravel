@@ -107,7 +107,25 @@ async function displayImage(data) {
     // loads low-res first while waiting for high-res to load
 }
 
-
+//Hotel Tracker
+// async function fetchHotel(city) {
+   
+//     try {
+//         const response = await fetch( 
+//             ``
+//             )
+//         if (response.ok) {
+//             const data = await response.json();
+//             displayImage(data);
+//         } else {
+//             throw new Error ('hotel request failed');
+//         }
+//     } catch(error) {
+//         console.log(error);
+//         errorMsg.innerHTML = error;
+//         errorMsg.style.opacity = '1';
+//     } 
+// }
 
 
 

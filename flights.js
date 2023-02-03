@@ -2,7 +2,7 @@ const flightCity = document.querySelector('#flight-city');
 
 
 function fetchFlight() {
-    apiKey = "prtl6749387986743898559646983194"
+    apiKey = "ke3sULQ5S5p8GGRE80b8jpp0yrolXCAz"
     fetch(
         `https://partners.api.skyscanner.net/apiservices/v3/flights/live/search/create`
     )
