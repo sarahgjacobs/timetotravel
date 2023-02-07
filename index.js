@@ -54,6 +54,7 @@ async function updateCards(data) {
         // list of cards
         fetchImage(data.city);
         fetchWeather(lat, lon);
+        fetchYelp(lat, lon);
         //we can add more API functions when we have them
     } else {
         errorMsg.style.opacity = '1';
@@ -168,7 +169,44 @@ async function displayWeather(data) {
     console.log(data)
 }
 
+async function fetchYelp(lat, lon) {
 
+    var queryURL = "https://api.yelp.com/v3/autocomplete?text=del&latitude=${lat}.786882&longitude=${lon}";
+var apiKey = "LHP5a13N-CLgoNyR61Hw6eTqBN8sMsBTk-KPIUT7ICglJ58K1Hr542guWEdpilwwTfemTatqcuPGAmGTgdYhu0jebdXfvRn9rdaFmYSX4O31Flg-p4plb3rnfLDiY3Yx"; 
+
+$.ajax({
+    url: queryURL,
+    method: "GET",
+    headers: {
+        "accept": "application/json",
+        "x-requested-with": "xmlhttprequest",
+        "Access-Control-Allow-Origin":"*",
+        "Authorization": `Bearer ${apiKey}`
+     },
+   success: function(result){
+        console.log(result);
+    }
+ });
+
+    // const apiKey = 'LHP5a13N-CLgoNyR61Hw6eTqBN8sMsBTk-KPIUT7ICglJ58K1Hr542guWEdpilwwTfemTatqcuPGAmGTgdYhu0jebdXfvRn9rdaFmYSX4O31Flg-p4plb3rnfLDiY3Yx';
+    // try {
+    //     const response = await fetch( 
+    //         `https://api.yelp.com/v3/autocomplete?text=del&latitude=${lat}.786882&longitude=${lon}`
+    //         )
+            
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         console.log(response.json);
+    //         displayYelp(data);
+    //     } else {
+    //         throw new Error ('weather request failed');
+    //     }
+    // } catch(error) {
+    //     console.log(error);
+    //     errorMsg.innerHTML = error;
+    //     errorMsg.style.opacity = '1';
+    // }
+}
 
 
 
