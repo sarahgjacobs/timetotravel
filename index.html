@@ -19,8 +19,11 @@
     </nav>
 
     <form class="search" id="form"> 
-        <input type="search" id="query" name="q" placeholder="Search...">
+        <input type="search" id="query" name="q" placeholder="Search..." list="cities" autocomplete="off">
         <button type="button" id="search-btn">Search</button>
+        <ul id="cities">
+
+        </ul>
         <p id="error">please enter a valid city</p>
     </form>
 
@@ -45,6 +48,7 @@
     </div>      </section>
         
     <script src="./index.js"></script>
+    <script src="./cards.js"></script>
     <!--<script type="module" src="./photo.js"></script>-->
 </body>
 </html>

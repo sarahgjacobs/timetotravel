@@ -7,10 +7,11 @@ const searchBar = document.querySelector('#query');
 const errorMsg = document.querySelector('#error');
 const sectionTitle = document.querySelector('#destination');
 
-searchBtn.addEventListener('click', fetchCity);
+searchBtn.addEventListener('click', () => setTimeout(fetchCityByPrefix, 500));
 
-// Gets City data from GeoDB API
-async function fetchCity() {
+// (Used by Search Button)
+// Gets City Info by search bar input
+async function fetchCityByPrefix() {
     resetPage();
     try {
         const options = {
@@ -35,16 +36,45 @@ async function fetchCity() {
     }
 }
 
-// returns state if US, country if else
-function region(data) {
-    if (data.country === "United States of America") {
-        return data.region;
-    } else {
-        return data.country;
+
+// (Used by Auto-fill)
+// Gets City Info by ID of selected auto-fill option
+async function fetchCityById(id) {
+    resetPage();
+    console.log(searchBar.value)
+    try {
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '499351b43dmsh00207893645a230p198f9ejsncc09ea58eb86',
+                'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+            }
+        };
+        const response = await fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${id}`, options)
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            updateCards(data.data);
+        } else {
+            throw new Error ('city request failed');
+        }
+    } catch(error) {
+        //tryAgain(id);
+        console.log(error);
+        errorMsg.innerHTML = error;
+        errorMsg.style.opacity = '1';
     }
 }
 
+function tryAgain(id) {
+    setTimeout(fetchCityById(id), 500);
+}
+
+
+
 // Updates Cards using data from GeoDB
+// used by both fetchCityByPrefix and fetchCityById
 async function updateCards(data) {
     console.log(data);
     if (data !== undefined) {
@@ -61,94 +91,120 @@ async function updateCards(data) {
 
 }
 
-// resets any CSS styles when button is clicked
-function resetPage() {
-    errorMsg.style.opacity = '0';
-}
+// Additional Functions used by UpdateCards + FetchCityByPrefix/Id
 
-
-
-
-
-// Background Image
-
-
-// fetches image from Unsplash API
-async function fetchImage(city) {
-   
-    try {
-        const response = await fetch( 
-            `https://api.unsplash.com/search/photos?query=${city}&orientation=landscape&per_page=5&page=1&client_id=tQ562nah0auLYfU46x_ZOMrVv9r_zPZgf1Wcna7C2b4`
-            )
-        if (response.ok) {
-            const data = await response.json();
-            displayImage(data);
-        } else {
-            throw new Error ('image request failed');
-        }
-    } catch(error) {
-        console.log(error);
-        errorMsg.innerHTML = error;
-        errorMsg.style.opacity = '1';
-    } 
-}
-
-// displays background image
-async function displayImage(data) {
-    
-    console.log(data)
-
-    let random = Math.floor(Math.random()*5);
-    let background = document.querySelector('body');
-    let lowRes = data.results[random].urls.small;
-    let highRes = data.results[random].urls.full;
-
-    background.style.backgroundImage = `url(${highRes}), url(${lowRes})`;
-    // loads low-res first while waiting for high-res to load
-}
-
-
-
-
-
-
-
-// Weather Card
-
-const temp = document.querySelector('#temp');
-const weatherConditions = document.querySelector('#conditions');
-
-// converts Kelvin to Fahrenheit
-function toFahrenheit(kelvin) {
-    return Math.floor((kelvin - 273.15) * (9/5) + 32);
-}
-
-// fetches weather from Open Weather API
-async function fetchWeather(lat, lon) {
-    try {
-        const response = await fetch( 
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=2555dd5ec5eeb17d78543d5987a555ff`
-            )
-        if (response.ok) {
-            const data = await response.json();
-            displayWeather(data);
-        } else {
-            throw new Error ('weather request failed');
-        }
-    } catch(error) {
-        console.log(error);
-        errorMsg.innerHTML = error;
-        errorMsg.style.opacity = '1';
+// returns state if US, country if else
+function region(data) {
+    if (data.country === "United States of America") {
+        return data.region;
+    } else {
+        return data.country;
     }
 }
 
-// displays weather data on card
-async function displayWeather(data) {
-    temp.innerHTML = `${toFahrenheit(data.main.temp)}°F`;
-    weatherConditions.innerHTML = data.weather[0].description;
-    //we can add more if we want
-    console.log(data)
+// resets any CSS styles when button is clicked
+function resetPage() {
+    errorMsg.style.opacity = '0';
+    while (datalist.firstChild) {
+        datalist.firstChild.remove();
+    }
 }
+
+
+
+
+
+
+
+
+// Auto-fill
+
+// auto-fill options list
+const datalist = document.querySelector('#cities');
+
+searchBar.addEventListener('input', startAutofillTimer)
+
+
+// Fast typing causes the API fetch to throw an error, so this timer is used to give the API time to respond 
+
+let typingTimer;
+
+function startAutofillTimer() {
+    
+    clearTimeout(typingTimer);
+    if (searchBar.value) {
+        typingTimer = setTimeout(autofill, 500);
+    } else {
+        setTimeout(() => {
+            while (datalist.firstChild) {
+            datalist.firstChild.remove();
+            }
+        }, 300)
+    }
+}
+
+async function autofill() {
+    resetPage();
+    try {
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '499351b43dmsh00207893645a230p198f9ejsncc09ea58eb86',
+                'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+            }
+        };
+        const response = await fetch(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${searchBar.value}&sort=-population&types=CITY`, options)
+
+        if (response.ok) {
+            const data = await response.json();
+            populateAutofill(data);
+        } else {
+            throw new Error ('city request failed');
+        }
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+
+
+
+function populateAutofill(data) {
+    
+    while (datalist.firstChild) {
+        datalist.firstChild.remove();
+    }
+
+    for (let i = 0; i < 5; i++) {
+        let city = data.data[i].city;
+        let region = data.data[i].region;
+        let country = data.data[i].country;
+        let optionText = `${city}, ${region}, ${country}`;
+        if (data.data[i].population > 0) {
+            let option = document.createElement('li')
+            option.classList.add('option')
+            //option.value = data.data[i].id;
+            option.innerHTML = optionText;
+            datalist.appendChild(option)
+            option.addEventListener('click', stopInput)
+        }
+    
+        function stopInput() {
+            searchBar.value = city;
+            while (datalist.firstChild) {
+                datalist.firstChild.remove();
+            }
+            fetchCityById(data.data[i].id)
+        }
+    }
+}
+
+
+
+
+
+
+
 
 
 
