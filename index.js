@@ -60,16 +60,12 @@ async function fetchCityById(id) {
             throw new Error ('city request failed');
         }
     } catch(error) {
-        //tryAgain(id);
         console.log(error);
         errorMsg.innerHTML = error;
         errorMsg.style.opacity = '1';
     }
 }
 
-function tryAgain(id) {
-    setTimeout(fetchCityById(id), 500);
-}
 
 
 
@@ -119,13 +115,20 @@ function resetPage() {
 
 // Auto-fill
 
+/*
+Basically every time the search bar value changes ("input") an API call is made and the autofill list updates. The problem is that if an API call is made too quickly after the last one, it fails. 
+
+I tried to fix it by setting a timer, but it still fails sometimes. 
+*/
+
+
+
 // auto-fill options list
 const datalist = document.querySelector('#cities');
 
+
 searchBar.addEventListener('input', startAutofillTimer)
 
-
-// Fast typing causes the API fetch to throw an error, so this timer is used to give the API time to respond 
 
 let typingTimer;
 
