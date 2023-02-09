@@ -8,6 +8,7 @@ Users should input their destination of choice into the search bar. Afterward, t
 
 ## Deployment
 Click [here](https://sarahgjacobs.github.io/timetotravel/) for the latest updates on the website.
+![Screenshot of Portfolio Website](./assets/images/Screen%20Shot%202023-02-09%20at%209.57.29%20AM.png "Time to Travel")
 
 ## Contributors
 [Sarah Jacobs](https://github.com/sarahgjacobs)
